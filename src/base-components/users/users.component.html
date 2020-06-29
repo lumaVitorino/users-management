@@ -1,0 +1,65 @@
+<section>
+<div class="card p-3 mt-4">
+  <div class="form-row w-50">
+      <div class="col-md-6">
+          <label for="newUser"><strong>Add New User:</strong></label>
+          <input class="form-control" id="newUser" type="text" [(ngModel)]="newUser" />
+      </div>
+      <div class="col-md-4 button">
+          <button class="btn btn-primary btn-block" (click)="addUser()" type="submit">Add</button>
+      </div>
+  </div>
+</div>
+<hr/>
+<div class="row w-25 mb-3">
+  <div *ngIf="!isEditAll" class="col-md-6">
+      <button class="btn btn-secondary btn-block" (click)="editAll()" type="submit">Edit All</button>
+  </div>
+  <div *ngIf="!isEditAll" class="col-md-6">
+      <button class="btn btn-secondary btn-block" (click)="deleteAll()" type="submit">Delete All</button>
+  </div>
+  <div *ngIf="isEditAll" class="col-md-6">
+      <button class="btn btn-secondary btn-block" (click)="saveAll()" type="submit">Save All</button>
+  </div>
+</div>
+<div class="card shadow">
+  <div class="card-body">
+      <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+          <table class="table my-0" id="dataTable">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor = "let user of users">
+                  <td>
+                    <input class="form-control" id="newUser" type="text" [(ngModel)]="user.name" disabled="{{!user.isEditMode && !isEditAll }}"/>
+                  </td>
+                  <td>
+                    <div class="row w-50">
+                        <div *ngIf="user.isEditMode || isEditAll" class="col-md-4">
+                          <button class="btn btn-outline-success" (click)="updateUser(user)"><i class="far fa-save"></i></button>
+                        </div>
+                        <div *ngIf="!user.isEditMode && !isEditAll" class="col-md-4">
+                            <button class="btn btn-outline-info" (click)="editViewUser(user)"><i class="far fa-edit"></i></button>
+                        </div>
+                        <div *ngIf="!user.isEditMode && !isEditAll" class="col-md-4">
+                            <button class="btn btn-outline-danger" (click)="deleteUser(user.id)"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                  <tr>
+                      <td><strong>Name</strong></td>
+                      <td><strong>Actions</strong></td>
+                  </tr>
+              </tfoot>
+          </table>
+      </div>
+  </div>
+</div>
+</section>
